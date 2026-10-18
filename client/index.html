@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>WatchHouse</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Icons, used with <svg><use href="#i-…"/></svg> -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-play" viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 16 16"><rect x="3.5" y="3.5" width="9" height="9" rx="1" fill="currentColor"/></symbol>
+    <symbol id="i-sync" viewBox="0 0 16 16"><path d="M13.5 8A5.5 5.5 0 0 1 3.6 11.3M2.5 8a5.5 5.5 0 0 1 9.9-3.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M12.9 1.9v3.2H9.7M3.1 14.1v-3.2h3.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 16 16"><path d="M1.5 4a1 1 0 0 1 1-1h3.6l1.5 1.6h5.9a1 1 0 0 1 1 1V12a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-link" viewBox="0 0 16 16"><path d="M6.5 9.5l3-3M7 4.5l1-1a2.8 2.8 0 0 1 4 4l-1 1M9 11.5l-1 1a2.8 2.8 0 0 1-4-4l1-1" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+    <symbol id="i-color" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 16 16"><circle cx="8" cy="8" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6.9 1.5h2.2l.4 1.7 1.3.6 1.5-.9 1.6 1.6-.9 1.5.6 1.3 1.7.4v2.2l-1.7.4-.6 1.3.9 1.5-1.6 1.6-1.5-.9-1.3.6-.4 1.7H6.9l-.4-1.7-1.3-.6-1.5.9-1.6-1.6.9-1.5-.6-1.3-1.7-.4V6.9l1.7-.4.6-1.3-.9-1.5 1.6-1.6 1.5.9 1.3-.6z" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-help" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6.2 6.2a1.9 1.9 0 1 1 2.6 1.8c-.5.2-.8.6-.8 1.1v.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 16 16"><path d="M2.5 4h11M2.5 8h11M2.5 12h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-back" viewBox="0 0 16 16"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="flag-de" viewBox="0 0 5 3"><rect width="5" height="1" fill="#000"/><rect y="1" width="5" height="1" fill="#dd0000"/><rect y="2" width="5" height="1" fill="#ffce00"/></symbol>
+    <symbol id="flag-en" viewBox="0 0 60 30"><clipPath id="gb-c"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#gb-c)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></symbol>
+  </svg>
+
+  <header>
+    <button id="back" class="icon" data-i18n-title="back" hidden><svg><use href="#i-back"/></svg></button>
+    <div id="title"><span id="viewName">WatchHouse</span><span id="proj"></span></div>
+    <div id="lang" class="lang" data-i18n-title="langTip">
+      <button data-lang="de" title="Deutsch"><svg class="flag"><use href="#flag-de"/></svg>DE</button>
+      <button data-lang="en" title="English"><svg class="flag"><use href="#flag-en"/></svg>EN</button>
+    </div>
+    <button id="helpBtn" class="icon" data-i18n-title="helpTip"><svg><use href="#i-help"/></svg></button>
+    <button id="settingsBtn" class="icon" data-i18n-title="settingsTip"><svg><use href="#i-gear"/></svg></button>
+    <button id="menuBtn" class="icon" data-i18n-title="menuTip"><svg><use href="#i-menu"/></svg></button>
+    <ul id="menu" hidden>
+      <li data-cmd="folders" data-i18n="menuFolders"></li>
+      <li data-cmd="addFolders" data-i18n="menuAdd"></li>
+      <li data-cmd="linkBins" data-i18n="menuLink"></li>
+      <li class="sep"></li>
+      <li data-cmd="sync" data-i18n="menuSync"></li>
+      <li data-cmd="toggle" data-i18n="menuToggle"></li>
+      <li class="sep"></li>
+      <li data-cmd="settings" data-i18n="menuSettings"></li>
+      <li data-cmd="help" data-i18n="menuHelp"></li>
+      <li data-cmd="openConfig" data-i18n="menuConfig"></li>
+    </ul>
+  </header>
+
+  <!-- Main panel -->
+  <section id="view-main" class="view">
+    <div id="statusCard" class="card">
+      <div class="card-head"><span id="statusDot"></span><b id="statusTitle"></b></div>
+      <p id="statusText"></p>
+      <p id="statusMeta" class="meta"></p>
+    </div>
+
+    <button id="btnWatch" class="big primary" data-i18n-title="btnStartTip">
+      <svg><use id="btnWatchIcon" href="#i-play"/></svg><span id="btnWatchLabel"></span>
+    </button>
+    <div class="btnrow">
+      <button id="btnSync" data-i18n-title="btnSyncTip"><svg><use href="#i-sync"/></svg><span data-i18n="btnSync"></span></button>
+      <button id="btnFolders" data-i18n-title="btnFoldersTip"><svg><use href="#i-folder"/></svg><span data-i18n="btnFolders"></span></button>
+    </div>
+
+    <ol id="steps" class="steps">
+      <li><span data-i18n="step1"></span></li>
+      <li><span data-i18n="step2"></span></li>
+      <li><span data-i18n="step3"></span></li>
+    </ol>
+
+    <div id="drop" class="drop" role="button" tabindex="0">
+      <svg class="drop-ico"><use href="#i-plus"/></svg>
+      <b id="dropTitle" data-i18n="dropTitle"></b>
+      <small data-i18n="dropText"></small>
+      <small data-i18n="dropBins"></small>
+    </div>
+
+    <div id="watched" class="block">
+      <h4><span data-i18n="watchedTitle"></span><span id="watchedCount" class="count"></span>
+        <a id="watchedEdit" href="#" data-i18n="watchedEdit"></a></h4>
+      <ul id="watchedList"></ul>
+    </div>
+
+    <div class="block grow">
+      <h4 data-i18n="historyTitle"></h4>
+      <ul id="log"></ul>
+      <p id="logEmpty" class="hint" data-i18n="historyEmpty"></p>
+    </div>
+  </section>
+
+  <!-- Watch-folders manager -->
+  <section id="view-folders" class="view" hidden>
+    <p class="intro" data-i18n="foldersIntro"></p>
+    <div class="btnrow small">
+      <button id="btnAdd" class="primary" data-i18n-title="btnAddTip"><svg><use href="#i-plus"/></svg><span data-i18n="btnAdd"></span></button>
+      <button id="btnLink" data-i18n-title="btnLinkTip"><svg><use href="#i-link"/></svg><span data-i18n="btnLink"></span></button>
+      <button id="btnApplyLabels" data-i18n-title="btnApplyLabelsTip"><svg><use href="#i-color"/></svg><span data-i18n="btnApplyLabels"></span></button>
+    </div>
+    <div class="treehead">
+      <span class="c-name" data-i18n="colFolder"></span>
+      <span class="c-opt" data-i18n-title="legSub">SUB</span>
+      <span class="c-opt" data-i18n-title="legRel">REL</span>
+      <span class="c-opt" data-i18n-title="legSeq">SEQ</span>
+      <span class="c-opt" data-i18n-title="legFlt">FLT</span>
+      <span class="c-label" data-i18n="colLabel" data-i18n-title="legLabel"></span>
+      <span class="c-del"></span>
+    </div>
+    <div id="tree"></div>
+    <p id="treeEmpty" class="emptybox" data-i18n="treeEmpty"></p>
+    <div id="drop2" class="drop" role="button" tabindex="0">
+      <svg class="drop-ico"><use href="#i-plus"/></svg>
+      <b id="drop2Title" data-i18n="dropMore"></b>
+      <small data-i18n="dropText"></small>
+      <small data-i18n="dropBins"></small>
+    </div>
+
+    <div class="legend">
+      <b data-i18n="legendTitle"></b>
+      <dl>
+        <dt>SUB</dt><dd data-i18n="legSub"></dd>
+        <dt>REL</dt><dd data-i18n="legRel"></dd>
+        <dt>SEQ</dt><dd data-i18n="legSeq"></dd>
+        <dt>FLT</dt><dd data-i18n="legFlt"></dd>
+        <dt data-i18n="colLabel"></dt><dd data-i18n="legLabel"></dd>
+      </dl>
+      <p class="hint"><span class="demo-auto"><input type="checkbox" checked disabled></span> <span data-i18n="legAuto"></span></p>
+    </div>
+  </section>
+
+  <!-- Settings -->
+  <section id="view-settings" class="view" hidden>
+    <div class="group">
+      <h3 data-i18n="setLanguage"></h3>
+      <div class="lang big" id="langBig">
+        <button data-lang="de"><svg class="flag"><use href="#flag-de"/></svg>Deutsch</button>
+        <button data-lang="en"><svg class="flag"><use href="#flag-en"/></svg>English</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3 data-i18n="grpImport"></h3>
+      <label class="check ppro-only"><input type="checkbox" id="s-showImportOptions">
+        <span><span data-i18n="setShowImportOptions"></span><small data-i18n="setShowImportOptionsHint"></small></span></label>
+      <label class="check ppro-only"><input type="checkbox" id="s-addImportDate">
+        <span><span data-i18n="setAddImportDate"></span><small data-i18n="setAddImportDateHint"></small></span></label>
+      <label class="field ae-only"><span data-i18n="setPsdAs"></span>
+        <select id="s-psdImportAs">
+          <option value="footage" data-i18n="psdFootage"></option>
+          <option value="comp" data-i18n="psdComp"></option>
+          <option value="compCropped" data-i18n="psdCompCropped"></option>
+        </select>
+      </label>
+      <label class="check"><input type="checkbox" id="s-notifications">
+        <span><span data-i18n="setNotifications"></span><small data-i18n="setNotificationsHint"></small></span></label>
+      <label class="field"><span data-i18n="setStableMs"></span>
+        <input type="number" id="s-stableMs" min="300" step="100">
+        <small data-i18n="setStableMsHint"></small>
+      </label>
+    </div>
+
+    <div class="group">
+      <h3 data-i18n="grpFilter"></h3>
+      <label class="field"><span data-i18n="setAllowed"></span>
+        <textarea id="s-allowedExtensions" rows="4" spellcheck="false"></textarea>
+        <small data-i18n="setAllowedHint"></small>
+      </label>
+      <label class="field"><span data-i18n="setIgnored"></span>
+        <textarea id="s-ignoredFolders" rows="4" spellcheck="false"></textarea>
+        <small data-i18n="setIgnoredHint"></small>
+      </label>
+    </div>
+
+    <div class="btnrow small">
+      <button id="btnSaveSettings" class="primary" data-i18n="btnSave"></button>
+      <button id="btnResetSettings" data-i18n="btnReset"></button>
+    </div>
+    <a id="showConfig" href="#" class="link" data-i18n="showConfig"></a>
+  </section>
+
+  <!-- Help -->
+  <section id="view-help" class="view" hidden>
+    <div class="group">
+      <h3 data-i18n="help1T"></h3>
+      <p data-i18n="help1"></p>
+    </div>
+    <div class="group">
+      <h3 data-i18n="help2T"></h3>
+      <ol class="steps"><li data-i18n="help2a"></li><li data-i18n="help2b"></li><li data-i18n="help2c"></li></ol>
+    </div>
+    <div class="group">
+      <h3 data-i18n="help4T"></h3>
+      <ul class="where">
+        <li><span class="flags"><svg class="flag"><use href="#flag-de"/></svg><svg class="flag"><use href="#flag-en"/></svg></span><span data-i18n="help4a"></span></li>
+        <li><svg><use href="#i-gear"/></svg><span data-i18n="help4b"></span></li>
+        <li><svg><use href="#i-folder"/></svg><span data-i18n="help4c"></span></li>
+      </ul>
+    </div>
+    <div class="group">
+      <h3 data-i18n="help3T"></h3>
+      <ul class="bullets"><li data-i18n="help3a"></li><li data-i18n="help3b"></li><li data-i18n="help3c"></li><li data-i18n="help3d"></li></ul>
+    </div>
+  </section>
+
+  <!-- Shown over the whole panel while folders are dragged over it -->
+  <div id="dragOverlay" aria-hidden="true">
+    <div class="dz-inner">
+      <svg class="dz-ico"><use href="#i-folder"/></svg>
+      <b data-i18n="dropOverlay"></b>
+      <small data-i18n="dropOverlayHint"></small>
+    </div>
+  </div>
+
+  <!-- Dialog -->
+  <div id="dialog" hidden>
+    <div class="box">
+      <h3 id="dlgTitle"></h3>
+      <div id="dlgBody"></div>
+      <div class="btnrow small">
+        <button id="dlgOk" class="primary"></button>
+        <button id="dlgCancel" data-i18n="cancel"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="CSInterface.js"></script>
+  <script src="common.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>
