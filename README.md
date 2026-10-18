@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="docs/icon.png" width="128" alt="WatchHouse icon">
+  <img src="docs/logo.png" width="620" alt="WatchHouse">
 </p>
-
-<h1 align="center">WatchHouse</h1>
 
 <p align="center">
   Watch folders for Premiere Pro and After Effects.<br>
@@ -54,6 +52,21 @@ Camera cards are detected. Only the clips go into the project, flat in one bin:
 <p align="center">
   <img src="docs/camera-cards-en.gif" width="820" alt="Camera card folders are detected and flattened">
 </p>
+
+## Screenshots
+
+| Main view | Manage folders | Drag folders in |
+|---|---|---|
+| <img src="docs/screens/main-en.png" width="260" alt="Main view"> | <img src="docs/screens/folders-en.png" width="260" alt="Manage folders"> | <img src="docs/screens/drop-en.png" width="260" alt="Dragging a folder onto the panel"> |
+
+<details>
+<summary>Settings and help</summary>
+
+| Settings | Help |
+|---|---|
+| <img src="docs/screens/settings-en.png" width="300" alt="Settings"> | <img src="docs/screens/help-en.png" width="300" alt="Help"> |
+
+</details>
 
 ## Installation
 
@@ -109,7 +122,7 @@ Your project settings stay where they are.
 | **Start / Stop auto-sync** | Import new files automatically (saved per project) |
 | **Sync now** | Check all folders once |
 | **Manage folders** | Add, remove and configure folders |
-| Drop zone | Drag in more folders at any time, or click it |
+| Drop zone | Drag in more folders at any time, or click it. While you drag, the whole panel turns blue |
 | Watched folders | All linked folders; offline folders are marked |
 | History | What was imported last |
 

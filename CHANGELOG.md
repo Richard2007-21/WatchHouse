@@ -5,6 +5,9 @@
 - New name: **WatchHouse** (formerly Ordnerwache). Settings and project files of the old version are taken over automatically.
 - README in English and German with explainer animations, banner and app icon
 - Release download `WatchHouse.zip` with a double-click installer for macOS
+- The whole panel turns blue while folders are dragged over it
+- Fixed: “No project open” after a restart of Premiere Pro (the ExtendScript loader could fail and block all commands)
+- Blackletter logo, screenshots in both languages
 
 ## 1.1.0 – 2026-10-18
 

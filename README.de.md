@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="docs/icon.png" width="128" alt="WatchHouse Icon">
+  <img src="docs/logo.png" width="620" alt="WatchHouse">
 </p>
-
-<h1 align="center">WatchHouse</h1>
 
 <p align="center">
   Watch Folders für Premiere Pro und After Effects.<br>
@@ -54,6 +52,21 @@ Kamerakarten werden erkannt. Nur die Clips kommen ins Projekt, flach in einen Bi
 <p align="center">
   <img src="docs/camera-cards-de.gif" width="820" alt="Kamerakarten werden erkannt und flach importiert">
 </p>
+
+## Bildschirmfotos
+
+| Hauptansicht | Ordner verwalten | Ordner hineinziehen |
+|---|---|---|
+| <img src="docs/screens/main-de.png" width="260" alt="Hauptansicht"> | <img src="docs/screens/folders-de.png" width="260" alt="Ordner verwalten"> | <img src="docs/screens/drop-de.png" width="260" alt="Ordner auf das Panel ziehen"> |
+
+<details>
+<summary>Einstellungen und Hilfe</summary>
+
+| Einstellungen | Hilfe |
+|---|---|
+| <img src="docs/screens/settings-de.png" width="300" alt="Einstellungen"> | <img src="docs/screens/help-de.png" width="300" alt="Hilfe"> |
+
+</details>
 
 ## Installation
 
@@ -109,7 +122,7 @@ Die Einstellungen deiner Projekte bleiben erhalten.
 | **Auto-Sync starten / stoppen** | Neue Dateien automatisch importieren (pro Projekt gespeichert) |
 | **Jetzt abgleichen** | Alle Ordner einmal prüfen |
 | **Ordner verwalten** | Ordner hinzufügen, entfernen und einstellen |
-| Ablagefeld | Jederzeit weitere Ordner hineinziehen oder anklicken |
+| Ablagefeld | Jederzeit weitere Ordner hineinziehen oder anklicken. Beim Ziehen wird das ganze Panel blau |
 | Beobachtete Ordner | Alle verbundenen Ordner; Offline-Ordner sind markiert |
 | Verlauf | Was zuletzt importiert wurde |
 
