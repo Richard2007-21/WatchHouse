@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionList>
+  <Extension Id="com.watchhouse.panel">
+    <HostList><Host Name="PPRO" Port="8094"/><Host Name="AEFT" Port="8096"/></HostList>
+  </Extension>
+  <Extension Id="com.watchhouse.background">
+    <HostList><Host Name="PPRO" Port="8095"/><Host Name="AEFT" Port="8097"/></HostList>
+  </Extension>
+</ExtensionList>
