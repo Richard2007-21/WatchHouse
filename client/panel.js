@@ -439,6 +439,13 @@
     resolveFolders(paths).then(addResolvedFolders);
   }
 
+  // With the setting on (default), adding a folder also starts auto-sync.
+  function autoStart(cfg) {
+    if (cfg.autoSync || core.loadSettings().autoStartOnAdd === false) return;
+    cfg.autoSync = true;
+    localLog(T('autoStarted'), 'ok');
+  }
+
   function addResolvedFolders(paths) {
     var added = 0;
     withConfig(function (cfg) {
@@ -448,6 +455,7 @@
         if (r.error) localLog(errText(r.error), 'warn');
         else { added++; localLog(T('added', { path: p }), 'ok'); }
       });
+      if (added) autoStart(cfg);
       return added > 0;
     });
     if (added) command({ cmd: 'sync' });
@@ -490,6 +498,7 @@
             if (a.error) localLog(errText(a.error), 'warn');
             else { n++; localLog(T('linked', { name: c.bin.name, path: c.folder }), 'ok'); }
           });
+          if (n) autoStart(cfg);
           return n > 0;
         });
         if (n) command({ cmd: 'sync' });
@@ -551,6 +560,7 @@
 
   function renderSettings() {
     var s = core.loadSettings();
+    $('s-autoStartOnAdd').checked = s.autoStartOnAdd !== false;
     $('s-showImportOptions').checked = !!s.showImportOptions;
     $('s-addImportDate').checked = !!s.addImportDate;
     $('s-notifications').checked = !!s.notifications;
@@ -562,6 +572,7 @@
 
   function saveSettings() {
     var s = core.loadSettings();
+    s.autoStartOnAdd = $('s-autoStartOnAdd').checked;
     s.showImportOptions = $('s-showImportOptions').checked;
     s.addImportDate = $('s-addImportDate').checked;
     s.notifications = $('s-notifications').checked;
