@@ -34,7 +34,7 @@
 ## How it works
 
 1. **Link a folder.** Drag a folder from Finder or Explorer onto the WatchHouse panel.
-2. **Start auto-sync.** One click.
+2. **Auto-sync starts.** It switches on by itself when you add a folder.
 3. **Done.** New files land in the matching bin, and new subfolders become bins. Nothing is imported twice. You can close the panel; WatchHouse keeps watching in the background.
 
 <p align="center">
@@ -145,6 +145,7 @@ A setting on a folder applies to all its subfolders, also to new ones. Click a f
 - Matches files by path against the whole project, so nothing is imported twice – also files you imported by hand
 - Waits until a file is completely written: copies, renders, downloads, iCloud files
 - New subfolders become bins automatically
+- Adding a folder starts auto-sync right away (can be switched off in the settings)
 
 **Media**
 - Image sequences are detected (3+ digits, 3+ frames in a row) and keep growing while they render

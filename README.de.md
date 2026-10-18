@@ -34,7 +34,7 @@
 ## So funktioniert es
 
 1. **Ordner verbinden.** Einen Ordner aus dem Finder oder Explorer auf das WatchHouse-Panel ziehen.
-2. **Auto-Sync starten.** Ein Klick.
+2. **Auto-Sync läuft.** Es startet von selbst, sobald du einen Ordner hinzufügst.
 3. **Fertig.** Neue Dateien landen im passenden Bin, neue Unterordner werden zu Bins. Nichts wird doppelt importiert. Das Panel darf zu – WatchHouse beobachtet im Hintergrund weiter.
 
 <p align="center">
@@ -145,6 +145,7 @@ Eine Einstellung am Ordner gilt für alle Unterordner, auch für neue. Ist ein O
 - Vergleicht Dateipfade mit dem ganzen Projekt – nichts wird doppelt importiert, auch keine von Hand importierten Dateien
 - Wartet, bis eine Datei fertig geschrieben ist: Kopien, Renderings, Downloads, iCloud-Dateien
 - Neue Unterordner werden automatisch zu Bins
+- Ein neuer Ordner startet Auto-Sync sofort (in den Einstellungen abschaltbar)
 
 **Medien**
 - Bildsequenzen werden erkannt (mindestens 3 Ziffern, mindestens 3 Bilder in Folge) und wachsen beim Rendern mit

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.0 – 2026-10-19
+
+- Adding a folder (or linking a bin) starts auto-sync right away
+- New setting to switch this off: Settings › Import › “Start auto-sync automatically when a folder is added”
+
 ## 1.2.0 – 2026-10-18
 
 - New name: **WatchHouse** (formerly Ordnerwache). Settings and project files of the old version are taken over automatically.
