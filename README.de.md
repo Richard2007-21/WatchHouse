@@ -81,7 +81,7 @@ Kamerakarten werden erkannt. Nur die Clips kommen ins Projekt, flach in einen Bi
 Lieber im Terminal? Im entpackten Ordner:
 
 ```bash
-./scripts/install-mac.sh
+bash scripts/install-mac.sh
 ```
 
 ### Windows
@@ -98,7 +98,7 @@ Lieber im Terminal? Im entpackten Ordner:
 
 ### Deinstallieren
 
-- macOS: `./scripts/uninstall-mac.sh`
+- macOS: `bash scripts/uninstall-mac.sh`
 - Windows: Ordner `%APPDATA%\Adobe\CEP\extensions\WatchHouse` löschen
 
 Die Einstellungen deiner Projekte bleiben erhalten.
@@ -189,12 +189,12 @@ WatchHouse sammelt keine Daten und sendet nichts. Es liest nur die Ordner, die d
 ```bash
 git clone https://github.com/Richard2007-21/WatchHouse.git
 cd WatchHouse
-./scripts/install-mac.sh --link   # verlinkt diesen Ordner statt ihn zu kopieren
+bash scripts/install-mac.sh --link   # verlinkt diesen Ordner statt ihn zu kopieren
 npm test                          # Tests mit simuliertem Premiere und After Effects
 ```
 
 Debug-Konsolen im Browser: Premiere `http://localhost:8094` (Panel) und `:8095` (Hintergrund-Dienst), After Effects `:8096` und `:8097`.
-Ein signiertes `.zxp` baut `./scripts/build-zxp.sh` (braucht Adobes ZXPSignCmd).
+Ein signiertes `.zxp` baut `bash scripts/build-zxp.sh` (braucht Adobes ZXPSignCmd).
 
 ## Lizenz
 
