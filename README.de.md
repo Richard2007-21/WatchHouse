@@ -33,9 +33,9 @@
 
 ## So funktioniert es
 
-**1. Ordner verbinden.** Einen Ordner aus dem Finder oder Explorer auf das WatchHouse-Panel ziehen.
-**2. Auto-Sync starten.** Ein Klick.
-**3. Fertig.** Neue Dateien landen im passenden Bin, neue Unterordner werden zu Bins. Nichts wird doppelt importiert. Das Panel darf zu – WatchHouse beobachtet im Hintergrund weiter.
+1. **Ordner verbinden.** Einen Ordner aus dem Finder oder Explorer auf das WatchHouse-Panel ziehen.
+2. **Auto-Sync starten.** Ein Klick.
+3. **Fertig.** Neue Dateien landen im passenden Bin, neue Unterordner werden zu Bins. Nichts wird doppelt importiert. Das Panel darf zu – WatchHouse beobachtet im Hintergrund weiter.
 
 <p align="center">
   <img src="docs/how-it-works-de.gif" width="820" alt="Eine neue Datei im Ordner wird in den passenden Bin importiert">

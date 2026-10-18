@@ -33,9 +33,9 @@
 
 ## How it works
 
-**1. Link a folder.** Drag a folder from Finder or Explorer onto the WatchHouse panel.
-**2. Start auto-sync.** One click.
-**3. Done.** New files land in the matching bin, and new subfolders become bins. Nothing is imported twice. You can close the panel; WatchHouse keeps watching in the background.
+1. **Link a folder.** Drag a folder from Finder or Explorer onto the WatchHouse panel.
+2. **Start auto-sync.** One click.
+3. **Done.** New files land in the matching bin, and new subfolders become bins. Nothing is imported twice. You can close the panel; WatchHouse keeps watching in the background.
 
 <p align="center">
   <img src="docs/how-it-works-en.gif" width="820" alt="A new file in the folder is imported into the matching bin">
