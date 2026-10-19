@@ -180,7 +180,7 @@ function ow_state(projPath) {
 // payload = { bins:[{base,sub,label}], imports:[{base,sub,label,seq,files}],
 //             refresh:[{path}], showOptions, addImportDate, forceLabels, notify }
 function ow_apply(projPath, payload) {
-    var res = { created: 0, imported: 0, refreshed: 0, importedPaths: [], errors: [] };
+    var res = { created: 0, imported: 0, refreshed: 0, importedPaths: [], errors: [], failed: [] };
     try {
         var pl = ow_parse(payload);
         var proj = ow_findProject(projPath);
@@ -213,6 +213,7 @@ function ow_apply(projPath, payload) {
                 }
             } catch (e2) {
                 res.errors.push(String(e2));
+                for (j = 0; j < imp.files.length; j++) res.failed.push(imp.files[j]);
             }
             for (j = 0; j < target.children.numItems; j++) {
                 var it = target.children[j];

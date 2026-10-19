@@ -12,10 +12,16 @@ function ow_isFolder(item) {
     return item instanceof FolderItem;
 }
 
+// Comment of comps made from a PSD/AI file: "WatchHouse source: <path>".
+var OW_SRC_TAG = 'WatchHouse source: ';
+
 function ow_mediaPath(item) {
     try {
         if (item instanceof FootageItem && item.mainSource instanceof FileSource && item.mainSource.file) {
             return item.mainSource.file.fsName;
+        }
+        if (item instanceof CompItem && item.comment && item.comment.indexOf(OW_SRC_TAG) === 0) {
+            return item.comment.substring(OW_SRC_TAG.length);
         }
     } catch (e) {}
     return '';
@@ -154,7 +160,7 @@ function ow_state(projPath) {
 // payload = { bins:[{base,sub,label}], imports:[{base,sub,label,seq,files}],
 //             refresh:[{path}], psdImportAs, forceLabels, notify }
 function ow_apply(projPath, payload) {
-    var res = { created: 0, imported: 0, refreshed: 0, importedPaths: [], errors: [] };
+    var res = { created: 0, imported: 0, refreshed: 0, importedPaths: [], errors: [], failed: [] };
     var undo = false;
     try {
         var pl = ow_parse(payload);
@@ -183,11 +189,14 @@ function ow_apply(projPath, payload) {
                     var it = ow_importOne(imp.files[j], imp.seq, pl.psdImportAs);
                     if (!it) continue;
                     it.parentFolder = target;
+                    // A comp has no source file: remember it, so it counts as imported later.
+                    if (it instanceof CompItem) { try { it.comment = OW_SRC_TAG + imp.files[j]; } catch (e6) {} }
                     ow_setLabel(it, imp.label);
                     res.imported++;
                     var mp = ow_mediaPath(it);
                     if (mp) res.importedPaths.push(mp);
                 } catch (e2) {
+                    res.failed.push(imp.files[j]);
                     res.errors.push(imp.files[j].replace(/^.*[\/\\]/, '') + ': ' + String(e2.message || e2));
                 }
             }
