@@ -106,6 +106,7 @@
     });
     if (IS_WIN) $('showConfig').textContent = T('showConfig_win');
     setViewTitle();
+    WHUpdate.render();
     setupNativeMenus();
     watchedSig = '';
     renderStatus();
@@ -434,9 +435,17 @@
     return chain.then(function () { return out; });
   }
 
+  // Dialogs can stay open while the user switches projects: never add to another one.
+  function sameProject(path0) {
+    if (project && project.path === path0) return true;
+    localLog(T('projectChanged'), 'warn');
+    return false;
+  }
+
   function addFolders(paths) {
     if (!canEdit() || !paths.length) return;
-    resolveFolders(paths).then(addResolvedFolders);
+    var path0 = project.path;
+    resolveFolders(paths).then(function (r) { if (sameProject(path0)) addResolvedFolders(r); });
   }
 
   // With the setting on (default), adding a folder also starts auto-sync.
@@ -463,6 +472,7 @@
 
   function linkSelectedBins() {
     if (!canEdit()) return;
+    var path0 = project.path;
     OW.evalScript('ow_selectedBins()').then(function (r) {
       var res;
       try { res = JSON.parse(r); } catch (e) { res = { error: r }; }
@@ -489,7 +499,7 @@
         body.appendChild(row);
       });
       return dialog(T('linkTitle'), body, T('btnLinkOk')).then(function (ok) {
-        if (!ok) return;
+        if (!ok || !sameProject(path0)) return;
         var n = 0;
         withConfig(function (cfg) {
           choices.forEach(function (c) {
@@ -561,6 +571,7 @@
   function renderSettings() {
     var s = core.loadSettings();
     $('s-autoStartOnAdd').checked = s.autoStartOnAdd !== false;
+    $('s-checkUpdates').checked = s.checkUpdates !== false;
     $('s-showImportOptions').checked = !!s.showImportOptions;
     $('s-addImportDate').checked = !!s.addImportDate;
     $('s-notifications').checked = !!s.notifications;
@@ -573,6 +584,7 @@
   function saveSettings() {
     var s = core.loadSettings();
     s.autoStartOnAdd = $('s-autoStartOnAdd').checked;
+    s.checkUpdates = $('s-checkUpdates').checked;
     s.showImportOptions = $('s-showImportOptions').checked;
     s.addImportDate = $('s-addImportDate').checked;
     s.notifications = $('s-notifications').checked;
@@ -585,6 +597,7 @@
     localLog(T('saved'), 'ok');
     command({ cmd: 'reload' });
     show('main');
+    if (s.checkUpdates) WHUpdate.check(false);
   }
 
   function showConfigFile() {
@@ -597,10 +610,11 @@
 
   // ---------------------------------------------------------------- menus
 
-  var MENU_ITEMS = ['folders', 'addFolders', 'linkBins', '-', 'sync', 'toggle', '-', 'settings', 'help', 'openConfig'];
+  var MENU_ITEMS = ['folders', 'addFolders', 'linkBins', '-', 'sync', 'toggle', '-', 'settings', 'help', 'checkUpdates',
+    'openConfig'];
   var MENU_KEYS = {
     folders: 'menuFolders', addFolders: 'menuAdd', linkBins: 'menuLink', sync: 'menuSync', toggle: 'menuToggle',
-    settings: 'menuSettings', help: 'menuHelp', openConfig: 'menuConfig'
+    settings: 'menuSettings', help: 'menuHelp', checkUpdates: 'menuUpdates', openConfig: 'menuConfig'
   };
 
   function xmlEsc(s) {
@@ -627,6 +641,7 @@
       case 'toggle': command({ cmd: 'toggle' }); setTimeout(renderStatus, 300); break;
       case 'settings': show('settings'); break;
       case 'help': show('help'); break;
+      case 'checkUpdates': show('settings'); WHUpdate.check(true); break;
       case 'openConfig': showConfigFile(); break;
     }
   }
@@ -742,6 +757,7 @@
       localLog(T('resetDone'), 'ok');
     };
     $('showConfig').onclick = function (e) { e.preventDefault(); showConfigFile(); };
+    WHUpdate.init(localLog);
     OW.loadHost().then(function () {
       refreshProject();
       setInterval(refreshProject, 2000);

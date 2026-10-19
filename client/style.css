@@ -360,3 +360,37 @@ body.dragover #dragOverlay { display: flex; }
 .dz-ico { width: 56px; height: 56px; color: #fff; }
 .dz-inner b { font-size: 16px; }
 .dz-inner small { color: rgba(255, 255, 255, 0.85); font-size: 12px; max-width: 300px; }
+
+/* ---------------------------------------------------------------- update banner */
+.update {
+  margin: 8px 10px 0;
+  padding: 8px 10px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: rgba(45, 140, 235, .12);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.update.done { border-color: var(--ok); background: rgba(61, 191, 110, .12); }
+.update.failed { border-color: var(--warn); background: rgba(227, 163, 60, .12); }
+.update .up-head { display: flex; align-items: flex-start; gap: 8px; }
+.update .up-ico { width: 18px; height: 18px; color: var(--accent); margin-top: 1px; }
+.update.done .up-ico { color: var(--ok); }
+.update.failed .up-ico { color: var(--warn); }
+.update .up-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.update .up-text b { font-size: 12px; }
+.update #upClose { margin: -3px -4px 0 0; font-size: 11px; line-height: 1; }
+.update pre {
+  margin: 0;
+  max-height: 140px;
+  overflow: auto;
+  white-space: pre-wrap;
+  font: 11px/1.45 -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: var(--fg2);
+  user-select: text;
+}
+.update button:disabled { opacity: .6; cursor: default; filter: none; }
+.upstate { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.upstate button { padding: 4px 9px; }
