@@ -1,11 +1,11 @@
 {
   "name": "watchhouse",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Watch folders for Adobe Premiere Pro and After Effects: new files are imported automatically into matching bins.",
   "private": true,
   "license": "MIT",
   "scripts": {
-    "test": "node tests/premiere.test.js && node tests/aftereffects.test.js",
+    "test": "node tests/premiere.test.js && node tests/aftereffects.test.js && node tests/update.test.js",
     "build:zxp": "./scripts/build-zxp.sh",
     "build:release": "./scripts/build-release.sh"
   },

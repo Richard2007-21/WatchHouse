@@ -103,6 +103,16 @@ bash scripts/install-mac.sh
 
 Die Einstellungen deiner Projekte bleiben erhalten.
 
+### Updates
+
+Ab Version 1.4.0 schaut WatchHouse hier auf GitHub nach einer neuen Version (höchstens alle 6 Stunden). Gibt es eine, erscheint oben im Panel ein Banner:
+
+- **Jetzt aktualisieren** lädt `WatchHouse.zip` der neuen Version und ersetzt die Dateien der Erweiterung. Danach Premiere Pro / After Effects neu starten.
+- **Neuerungen** zeigt, was sich geändert hat.
+- Bei einer Installation aus einem Git-Ordner (`install-mac.sh --link`) oder in einen schreibgeschützten Ordner gibt es stattdessen einen Knopf **Herunterladen**.
+
+Ausschalten oder von Hand prüfen: **Einstellungen › Updates**. Versionen vor 1.4.0 haben keine Update-Prüfung: 1.4.0 einmal von Hand installieren.
+
 ## Bedienung
 
 **Oben im Panel**
@@ -175,7 +185,7 @@ Eine Einstellung am Ordner gilt für alle Unterordner, auch für neue. Ist ein O
 
 ## Datenschutz
 
-WatchHouse sammelt keine Daten und sendet nichts. Es liest nur die Ordner, die du verbindest, und spricht mit Premiere Pro oder After Effects auf deinem Rechner.
+WatchHouse sammelt keine Daten und sendet nichts. Es liest nur die Ordner, die du verbindest, und spricht mit Premiere Pro oder After Effects auf deinem Rechner. Einzige Netzwerk-Anfrage ist die Update-Prüfung: Sie fragt die öffentliche GitHub-API nach der neuesten Version dieses Repos (abschaltbar unter Einstellungen › Updates).
 
 ## Gut zu wissen
 

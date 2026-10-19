@@ -103,6 +103,16 @@ bash scripts/install-mac.sh
 
 Your project settings stay where they are.
 
+### Updates
+
+From version 1.4.0 on, WatchHouse looks for a new release here on GitHub (at most every 6 hours). When there is one, a banner appears at the top of the panel:
+
+- **Update now** downloads `WatchHouse.zip` of the release and replaces the extension files. Restart Premiere Pro / After Effects afterwards.
+- **What's new** shows the release notes.
+- Copies installed from a Git folder (`install-mac.sh --link`) or into a read-only folder get a **Download** button instead.
+
+Switch the check off or run it by hand in **Settings › Updates**. Versions before 1.4.0 have no update check: install 1.4.0 once by hand.
+
 ## Using WatchHouse
 
 **At the top of the panel**
@@ -175,7 +185,7 @@ A setting on a folder applies to all its subfolders, also to new ones. Click a f
 
 ## Privacy
 
-WatchHouse collects no data and sends nothing anywhere. It only reads the folders you link and talks to Premiere Pro or After Effects on your computer.
+WatchHouse collects no data and sends nothing anywhere. It only reads the folders you link and talks to Premiere Pro or After Effects on your computer. The only network request is the update check: it asks the public GitHub API for the latest release of this repository (switch it off in Settings › Updates).
 
 ## Good to know
 

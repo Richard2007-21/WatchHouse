@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.0 – 2026-10-19
+
+- Update banner: WatchHouse checks GitHub for a new release (at most every 6 hours) and shows it at the top of the panel
+- “Update now” downloads WatchHouse.zip from the release and installs it in place; restart Premiere Pro / After Effects afterwards. Copies in a Git folder or a read-only folder get a download link instead
+- “What's new” in the banner shows the release notes
+- Settings › Updates: switch the automatic check off, or check now; also in the panel menu
+- Note: versions before 1.4.0 have no update check – install 1.4.0 once by hand
+
 ## 1.3.0 – 2026-10-19
 
 - Adding a folder (or linking a bin) starts auto-sync right away
