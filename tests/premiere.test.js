@@ -242,6 +242,56 @@ touch(path.join(W, 'kaputt.bad'));
   assert(core.isStagingPath(path.join(require('os').homedir(), 'Library', 'Application Support', 'BarDrop', 'x')));
   assert(!core.isStagingPath(path.join(require('os').homedir(), 'Library', 'Mobile Documents', 'x')), 'iCloud Drive is no staging path');
 
+  // A slowly rendered sequence: its first frames are not imported as single stills.
+  const W3 = path.join(TMP, 'Slow');
+  touch(path.join(W3, 'r_0001.png'), 'x', 2000);
+  touch(path.join(W3, 'other.wav'), 'x', 2000);
+  const cfgS = core.emptyConfig();
+  core.addRoot(cfgS, W3, projPath, null);
+  const pendS = {};
+  const ctxS = t => ({ config: cfgS, projectPath: projPath, settings: core.loadSettings(), imported: new Set(), now: t, pending: pendS, attempted: {} });
+  const t0 = Date.now();
+  core.buildPlan(ctxS(t0));
+  let planS = core.buildPlan(ctxS(t0 + 400));
+  let namesS = [].concat.apply([], planS.imports.map(i => i.files.map(f => path.basename(f))));
+  assert.deepStrictEqual(namesS, ['other.wav'], 'possible first frame waits');
+  assert(planS.waiting >= 1, 'waiting counted, so the engine looks again');
+  touch(path.join(W3, 'r_0002.png'), 'x', 1000);
+  touch(path.join(W3, 'r_0003.png'), 'x', 1000);
+  core.buildPlan(ctxS(t0 + 800));
+  planS = core.buildPlan(ctxS(t0 + 1200));
+  assert(planS.imports.some(i => i.seq && path.basename(i.files[0]) === 'r_0001.png'), 'imported as sequence once 3 frames exist');
+  // A lone numbered still is imported after the quiet time.
+  fs.rmSync(path.join(W3, 'r_0002.png')); fs.rmSync(path.join(W3, 'r_0003.png'));
+  core.buildPlan(ctxS(t0 + 15000));
+  planS = core.buildPlan(ctxS(t0 + 15400));
+  namesS = [].concat.apply([], planS.imports.map(i => i.files.map(f => path.basename(f))));
+  assert(namesS.includes('r_0001.png'), 'lone numbered still imported after quiet time');
+  // SEQ switched off: numbered files are imported at once.
+  core.setOption(cfgS.folders[0], '', 'seq', false);
+  touch(path.join(W3, 'r_0005.png'), 'x', 2000);
+  core.buildPlan(ctxS(t0 + 16000));
+  planS = core.buildPlan(ctxS(t0 + 16400));
+  assert(planS.imports.some(i => i.files.some(f => /r_0005/.test(f))), 'SEQ off: no waiting');
+
+  // An import that throws (Premiere busy) is tried again, not blocked.
+  const realImport = project.importFiles;
+  let throwOnce = true;
+  project.importFiles = function (files) {
+    if (throwOnce && files.some(f => /flaky\.wav$/.test(f))) { throwOnce = false; throw new Error('busy'); }
+    return realImport.apply(this, arguments);
+  };
+  const cfgF = core.loadConfig(projPath);
+  core.setRootPath(cfgF.folders[0], W, projPath);
+  core.saveConfig(projPath, cfgF);
+  touch(path.join(W, 'Musik', 'flaky.wav'));
+  await sync(); await sleep(400); await sync();
+  assert(!allMedia().some(m => m.name === 'flaky.wav'), 'first try threw');
+  await sync(); await sleep(400); await sync();
+  assert(allMedia().some(m => m.name === 'flaky.wav'), 'imported on the next try');
+  project.importFiles = realImport;
+  engine.stop();
+
   // Tree for the manager
   const cfg3 = core.loadConfig(projPath);
   core.setRootPath(cfg3.folders[0], W, projPath);

@@ -83,6 +83,15 @@ touch(path.join(W, 'proxies', 'p.mov'));
   const n = all.length;
   await engine.command({ cmd: 'sync', project: projFile });
   assert.strictEqual(all.length, n, 'no duplicates');
+  // Project reopened (new engine, nothing in memory): the PSD comp counts as imported.
+  assert(comp.comment && comp.comment.indexOf(path.join(W, 'Grafik', 'logo.psd')) > 0, 'comp tagged with source');
+  const engine2 = createEngine({ core, evalScript, onLog: () => {} });
+  await engine2.command({ cmd: 'sync', project: projFile });
+  await sleep(400);
+  await engine2.command({ cmd: 'sync', project: projFile });
+  assert.strictEqual(all.filter(i => i instanceof CompItem).length, 1, 'comp not imported again after reopen');
+  assert.strictEqual(all.length, n, 'nothing imported again after reopen');
+  engine2.stop();
   touch(path.join(W, 'Render', 'r_004.exr'));
   await engine.command({ cmd: 'sync', project: projFile });
   await sleep(400);
